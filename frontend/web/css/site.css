@@ -1,0 +1,374 @@
+main > .container, main > .container-fluid
+{
+    padding: 70px 15px 20px;
+}
+
+.bg-dark{
+    background-color: rgb(238, 238, 238) !important;
+}
+
+.footer {
+    background-color: #f5f5f5;
+    font-size: .9em;
+    height: 60px;
+}
+
+.footer > .container, .footer > .container-fluid {
+    padding-right: 15px;
+    padding-left: 15px;
+}
+
+.not-set {
+    color: #c55;
+    font-style: italic;
+}
+
+/* add sorting icons to gridview sort links */
+a.asc:after, a.desc:after {
+    content: '';
+    left: 3px;
+    display: inline-block;
+    width: 0;
+    height: 0;
+    border: solid 5px transparent;
+    margin: 4px 4px 2px 4px;
+    background: transparent;
+}
+
+a.asc:after {
+    border-bottom: solid 7px #212529;
+    border-top-width: 0;
+}
+
+a.desc:after {
+    border-top: solid 7px #212529;
+    border-bottom-width: 0;
+}
+
+.grid-view th,
+.grid-view td:last-child {
+    white-space: nowrap;
+}
+
+.grid-view .filters input,
+.grid-view .filters select {
+    min-width: 50px;
+}
+
+.hint-block {
+    display: block;
+    margin-top: 5px;
+    color: #999;
+}
+
+.error-summary {
+    color: #a94442;
+    background: #fdf7f7;
+    border-left: 3px solid #eed3d7;
+    padding: 10px 20px;
+    margin: 0 0 15px 0;
+}
+
+/* align the logout "link" (button in form) of the navbar */
+.navbar form > button.logout {
+    padding-top: 7px;
+    color: rgba(255, 255, 255, 0.5);
+}
+
+@media(max-width:767px) {
+    .navbar form > button.logout {
+        display:block;
+        text-align: left;
+        width: 100%;
+        padding: 10px 0;
+    }
+}
+
+.navbar form > button.logout:focus,
+.navbar form > button.logout:hover {
+    text-decoration: none;
+    color: rgba(0, 0, 0, 0.75);
+}
+
+.navbar form > button.logout:focus {
+    outline: none;
+}
+
+.nav-link{
+    color: #000 !important;
+}
+
+.nav-link.active{
+    color: rgb(173 173 173) !important;
+}
+
+
+/* style breadcrumb widget as in previous bootstrap versions */
+.breadcrumb {
+    background-color: var(--bs-gray-200);
+    border-radius: .25rem;
+    padding: .75rem 1rem;
+}
+
+.breadcrumb-item > a
+{
+    text-decoration: none;
+}
+
+.img-logo{
+    height: 160px;
+}
+
+.box-lista-header {
+    border-radius:12px;
+    position:relative;
+    padding:8px;
+    overflow: hidden;
+    margin-right:10px;
+    background-color: rgb(255,255,255);
+    box-shadow:1px 1px 1px rgba(0,0,0,.3);
+  }
+  
+  .box-lista {
+    border-radius:12px;
+    position:relative;
+    padding:20px;
+    overflow: hidden;
+    background-color: rgb(255,255,255);
+    box-shadow:1px 1px 1px rgba(0,0,0,.3);
+  }
+  
+  .box-lista .imagem-lista {
+    width:100%;
+    height:260px;
+    overflow:hidden;
+  }
+  
+  .box-lista > .imagem-lista > img {
+    width:100%;
+    height:260px;
+    object-fit: cover;
+    object-position: center;
+    clip-path: polygon(0 0, 93% 0, 100% 100%, 0% 100%);
+  }
+  
+  .box-lista .texto {
+    padding:30px 30px 20px 20px;
+    color:#000;
+  }
+  
+  .box-lista .btn-status {
+    position: absolute;
+    right:-20px;
+    top:-20px;
+    border-radius:0 12px 0 18px;
+    font-size:12px
+  }
+  
+  .box-padding {
+    padding:20px;
+  }
+  
+  .box-lista hr {
+    padding:0 !important;
+    margin:15px 0 !important;
+  }
+  
+  .box-lista-noticia {
+    border-radius:12px;
+    position:relative;
+    overflow: hidden;
+    height:500px;
+    margin-bottom:30px;
+    background-color: rgb(255,255,255);
+    box-shadow:0 4px 10px rgba(0, 0, 0, 0.07);
+  }
+  
+  .box-lista-noticia .imagem-lista {
+    width:100%;
+    height:200px;
+    object-fit: cover;
+    object-position: center;
+    overflow:hidden;
+  }
+  
+  .box-lista-noticia img {
+    width:100%;
+    min-height:200px;
+    object-fit: cover;
+    object-position: center;
+  }
+  
+  .box-lista-noticia .texto {
+    padding:20px 30px;
+    color:#000;
+  }
+  
+  .box-lista-noticia hr {
+    padding:0 !important;
+    margin:15px 0 !important;
+  }
+  
+  .box-lista-noticia h4 {
+    color:rgb(30,105,170);
+    font-size:1.35em;
+    font-family:'Montserrat',sans-serif;
+    margin:0 35px 10px 0;
+  }
+  
+  .box-lista-noticia small {
+    font-size:1em;
+    line-height:1.2em;
+    padding:0;
+    margin:0;
+    display:block;
+  }
+  
+  .box-lista h4 {
+    margin:0 0 20px 0 !important;
+  }
+  
+  .box-lista > span {
+    position: absolute;
+    left:100px;
+    top:-1px;
+    background-color: rgb(8,96,164);
+    color: #FFF;
+    padding: 10px 20px 10px 10px;
+    z-index: 2;
+    font-size: 18px;
+  }
+  
+  .box-lista p {
+    margin-top:10px;
+    overflow: hidden;
+    text-overflow:ellipsis;
+  }
+  
+
+  a {
+    color: rgb(30,105,170);
+}
+
+.noticia-secundaria-menor{
+  margin-top: 20px;
+}
+
+.home-noticia-principal {
+  position:relative;
+  width:100%;
+  height:420px;
+  overflow: hidden;
+  object-fit: cover;
+  object-position: center;
+  margin-bottom:20px;
+  border-radius:14px;
+}
+
+.home-noticia-principal img {
+  width:auto;
+  min-width:100%;
+  height:100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.home-noticia-principal strong h3 {
+  position: absolute;
+  bottom:0;
+  left:0;
+  right:0;
+  margin:0;
+  padding:20px 30px;
+  background-color: rgba(0,0,0,.8);
+  font-size:24px;
+  line-height:28px;
+  text-transform: uppercase;
+  font-weight:bold;
+  color:rgb(255,255,255);
+  transition:all .3s ease;
+}
+
+.home-noticia-principal:hover strong h3 {
+  padding:40px 30px;
+}
+
+#noticia-secundaria{
+  margin-top: -20px;
+}
+
+#noticia-secundaria .col-ce1-12:nth-of-type(3) , #noticia-secundaria .col-ce1-12:nth-of-type(4) {
+  margin-top:20px;
+}
+
+.home-noticia-secundaria {
+  border-top:1px solid rgb(230,230,230);
+  border-left:1px solid rgb(230,230,230);
+  border-right:1px solid rgb(160,160,160);
+  border-bottom:1px solid rgb(160,160,160);
+  border-radius:12px;
+  position:relative;
+  overflow: hidden;
+  height: 200px;
+  margin-bottom:24px;
+}
+
+.home-noticia-secundaria img {
+  width:auto;
+  width:100%;
+  height:200px;
+  object-fit: cover;
+  object-position: center;
+  overflow: hidden;
+}
+
+.home-noticia-secundaria h3 {
+  position: absolute;
+  bottom:0;
+  left:0;
+  right:0;
+  margin:0;
+  padding:20px 30px;
+  background-color: rgba(0,0,0,.8);
+  font-size:14px;
+  line-height:18px;
+  text-transform: uppercase;
+  font-weight:bold;
+  color:rgb(255,255,255);
+  transition: all .2s ease;
+}
+
+.home-noticia-secundaria:hover h3 {
+  padding:30px;
+}
+
+.home-noticia-secundaria p {
+  padding:0 15px;
+  font-size: 15px;
+}
+
+.home-noticia-secundaria p {
+  margin-top:10px;
+  overflow: hidden;
+  text-overflow:ellipsis;
+}
+
+#noticia-lista {
+  width: 100%;
+}
+
+.btn-padrao {
+  color: rgb(50,50,50);
+  border: 2px solid rgb(255,200,50);
+  padding: 8px 20px;
+  font-size: 14px;
+  font-weight: bold;
+  border-radius: 20px;
+  text-transform: uppercase;
+  transition: all .2s ease;
+}
+
+.btn-padrao:hover {
+  padding:8px 30px;
+  border: 2px solid rgb(0,145,70);
+}
