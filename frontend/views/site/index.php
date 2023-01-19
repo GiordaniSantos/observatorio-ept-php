@@ -1,14 +1,15 @@
 <?php
 use yii\helpers\Html;
+use kartik\icons\Icon;
 use yii\helpers\Url;
 
 /** @var yii\web\View $this */
 
 $this->title = 'Observatório do IFSUL';
 ?>
-<div class="site-index">
+<div class="site-index bg-light-site">
     
-    <div class="body-content" style="margin-top: 75px;">
+    <div class="body-content" style="margin-top: 150px;">
 
     <div class="row">
       <div class="col-ce1-24">
@@ -90,7 +91,7 @@ $this->title = 'Observatório do IFSUL';
 <section class="container">
    <div class="row">
       <div class="col-6">
-         <div class="box-lista" style="height:400px; overflow-y:auto">
+         <div class="box-lista" style="height:650px; overflow-y:auto">
             <h2 class="titulo">Próxima Licitação<span class="square"></span></h2>
             <div class="row">
                <div class="col-ce1-24">
@@ -109,50 +110,27 @@ $this->title = 'Observatório do IFSUL';
          </div>
       </div>
       <div class="col-6">
-         <div class="box-lista" style="height:400px">
-            <h2 class="titulo">Legislação<span class="square"></span></h2>
+         <div class="box-lista" style="height:650px">
+            <h2 class="titulo">Agenda do observatório<span class="square"></span></h2>
             <div class="row">
-               <div class="col-ce1-24" style="height:310px; overflow-y:auto">
-                  <div class="row lista-legislacao-home nomargin">
-                     <div class="col-ce1-3 text-center"><span class="material-symbols-outlined">folder</span></div>
-                     <div class="col-ce1-21"><a href="#"><strong>Audiências Públicas</strong><br /><small>93 documentos</small></a></div>
-                  </div>
-                  <div class="row lista-legislacao-home nomargin">
-                     <div class="col-ce1-3 text-center"><span class="material-symbols-outlined">folder</span></div>
-                     <div class="col-ce1-21"><a href="#"><strong>Atas</strong><br /><small>19 documentos</small></a></div>
-                  </div>
-                  <div class="row lista-legislacao-home nomargin">
-                     <div class="col-ce1-3 text-center"><span class="material-symbols-outlined">folder</span></div>
-                     <div class="col-ce1-21"><a href="#"><strong>Decretos</strong><br /><small>81 documentos</small></a></div>
-                  </div>
-                  <div class="row lista-legislacao-home nomargin">
-                     <div class="col-ce1-3 text-center"><span class="material-symbols-outlined">folder</span></div>
-                     <div class="col-ce1-21"><a href="#"><strong>Legislação Completa</strong><br /><small>8189 documentos</small></a></div>
-                  </div>
-                  <div class="row lista-legislacao-home nomargin">
-                     <div class="col-ce1-3 text-center"><span class="material-symbols-outlined">folder</span></div>
-                     <div class="col-ce1-21"><a href="#"><strong>Ordens de Serviço</strong><br /><small>116 documentos</small></a></div>
-                  </div>
-                  <div class="row lista-legislacao-home nomargin">
-                     <div class="col-ce1-3 text-center"><span class="material-symbols-outlined">folder</span></div>
-                     <div class="col-ce1-21"><a href="#"><strong>Resoluções</strong><br /><small>39 documentos</small></a></div>
-                  </div>
-                  <div class="row lista-legislacao-home nomargin">
-                     <div class="col-ce1-3 text-center"><span class="material-symbols-outlined">folder</span></div>
-                     <div class="col-ce1-21"><a href="#"><strong>Termos de Cessão de Servidor</strong><br /><small>42 documentos</small></a></div>
-                  </div>
-                  <div class="row lista-legislacao-home nomargin">
-                     <div class="col-ce1-3 text-center"><span class="material-symbols-outlined">folder</span></div>
-                     <div class="col-ce1-21"><a href="#"><strong>Termos de Convênio</strong><br /><small>28 documentos</small></a></div>
-                  </div>
-                  <div class="row lista-legislacao-home nomargin">
-                     <div class="col-ce1-3 text-center"><span class="material-symbols-outlined">folder</span></div>
-                     <div class="col-ce1-21"><a href="#"><strong>Termos de Cooperação</strong><br /><small>67 documentos</small></a></div>
-                  </div>
+               <div id="calendario" class="radius4 marginTop25">
+                  <br><br>
+               <?= yii2fullcalendar\yii2fullcalendar::widget([
+                     'options' => [
+                     'lang' => 'pt'
+                        ],
+                     'events' => $events
+                  ]);
+               ?>
                </div>
             </div>
          </div>
       </div>
+   </div>
+</section>
+<br><br>
+<section class="container">
+   <div class="row">
       <div class="col-ce1-8">
          <div class="box-lista" style="height:400px; overflow-y:auto">
             <h2 class="titulo">Contratações<span class="square"></span></h2>
@@ -171,7 +149,5 @@ $this->title = 'Observatório do IFSUL';
       </div>
    </div>
 </section>
+<br>
 
-
-    </div>
-</div>

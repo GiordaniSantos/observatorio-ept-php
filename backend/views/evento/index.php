@@ -1,13 +1,13 @@
 <?php
 
-use common\models\Agenda;
+use common\models\Evento;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\grid\ActionColumn;
 use yii\grid\GridView;
 
 /** @var yii\web\View $this */
-/** @var common\models\search\AgendaSearch $searchModel */
+/** @var common\models\search\EventoSearch $searchModel */
 /** @var yii\data\ActiveDataProvider $dataProvider */
 
 $this->title = 'Agendas';
@@ -28,15 +28,18 @@ $this->params['breadcrumbs'][] = $this->title;
         'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-            'date',
-            'description',
-            'external_link',
-            'createdAt',
+            'titulo',
+            'descricao',
+            [
+                'attribute' => 'destaque',
+                'format' => 'boolean',
+                'filter'=> [ 1 => 'Sim', 0 => 'Não' ]
+            ],
             //'updatedAt',
             [
                 'class' => ActionColumn::className(),
-                'urlCreator' => function ($action, Agenda $model, $key, $index, $column) {
-                    return Url::toRoute([$action, 'schedule_id' => $model->schedule_id]);
+                'urlCreator' => function ($action, Evento $model, $key, $index, $column) {
+                    return Url::toRoute([$action, 'id' => $model->id]);
                  }
             ],
         ],

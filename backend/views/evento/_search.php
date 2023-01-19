@@ -15,15 +15,19 @@ use yii\widgets\ActiveForm;
         'method' => 'get',
     ]); ?>
 
-    <?= $form->field($model, 'schedule_id') ?>
+    <?= $form->field($model, 'titulo') ?>
 
-    <?= $form->field($model, 'date') ?>
+    <?= $form->field($model, 'local') ?>
 
-    <?= $form->field($model, 'description') ?>
+    <?= $form->field($model, 'resumo') ?>
 
-    <?= $form->field($model, 'external_link') ?>
+    <?= $form->field($model, 'descricao') ?>
 
-    <?= $form->field($model, 'createdAt') ?>
+    <?= $form->field($model, 'data_inicio') ?>
+
+    <?= $form->field($model, 'data_fim') ?>
+
+    <?= $form->field($model, 'destaque') ?>
 
     <?php // echo $form->field($model, 'updatedAt') ?>
 

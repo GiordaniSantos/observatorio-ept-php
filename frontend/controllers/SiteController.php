@@ -11,6 +11,7 @@ use yii\web\Controller;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use common\models\LoginForm;
+use common\models\Evento;
 use frontend\models\PasswordResetRequestForm;
 use frontend\models\ResetPasswordForm;
 use frontend\models\SignupForm;
@@ -75,7 +76,26 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        return $this->render('index');
+        $eventos = Evento::find()->all();
+
+        $eventosMes = Evento::find()->where('extract(day from data_inicio) = extract(day from now())')->andWhere('extract(month from data_inicio) = extract(month from now())')->andWhere('extract(year from data_inicio) = extract(year from now())')->all();
+        $events = [];
+
+        foreach ($eventos as $evento){
+            
+            $Event = new \yii2fullcalendar\models\Event();
+            $Event->id = $evento->id;
+            $Event->title = $evento->titulo;
+            $Event->start = date('Y-m-d\Th:i:s\Z',strtotime($evento->data_inicio));
+            $Event->end = date('Y-m-d\Th:i:s\Z',strtotime($evento->data_fim));
+            $Event->url = '/evento/view/'.$evento->id;
+            $events[] = $Event;
+        }
+
+        return $this->render('index',[
+            'events' => $events,
+            'eventosMes' => $eventosMes
+        ]);
     }
 
     /**
