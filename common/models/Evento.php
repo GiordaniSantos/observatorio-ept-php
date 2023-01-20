@@ -3,7 +3,7 @@
 namespace common\models;
 
 use Yii;
-
+use yii\helpers\ArrayHelper;
 /**
  * This is the model class for table "membro".
  *
@@ -72,5 +72,26 @@ class Evento extends \yii\db\ActiveRecord
             'data_criacao' => Yii::t('app', 'Data Criação'),
             'data_modifacao' => Yii::t('app', 'Data Modifação'),
         ];
+    }
+
+    public static function getDataProvider($options)
+    {
+        $query = self::find();
+        $query->andFilterWhere(['classname' => ArrayHelper::getValue($options, 'modelclass', null)]);
+        $query->andFilterWhere(ArrayHelper::getValue($options, 'filterWhere', []));
+        $query->orderBy(ArrayHelper::getValue($options, 'order', ['id' => SORT_DESC]));
+        
+        if (isset($options['where'])) {
+            $query->andWhere($options['where']);
+        }
+        
+        if (isset($options['limit'])) {
+            $query->limit($options['limit']);
+        }
+
+        return new \yii\data\ActiveDataProvider([
+            'pagination' => ArrayHelper::getValue($options, 'pagination', false),
+            'query' => $query
+        ]);
     }
 }

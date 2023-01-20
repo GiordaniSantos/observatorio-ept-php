@@ -9,6 +9,7 @@ use yii\bootstrap5\Breadcrumbs;
 use yii\bootstrap5\Html;
 use yii\bootstrap5\Nav;
 use yii\bootstrap5\NavBar;
+use yii\helpers\Url;
 use kartik\icons\Icon;
 
 AppAsset::register($this);
@@ -20,6 +21,7 @@ AppAsset::register($this);
 <head>
     <meta charset="<?= Yii::$app->charset ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <?=$this->registerLinkTag(['rel' => 'icon', 'type' => 'image/png', 'href' => Url::to('@web/favicon.ico')])?>
     <?php $this->registerCsrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
@@ -33,7 +35,7 @@ AppAsset::register($this);
         'brandLabel' => Html::img('@web/images/Logo.png',['alt' => Yii::$app->name, 'class' => 'logo-capa']),
         'brandUrl' => Yii::$app->homeUrl,
         'options' => [
-            'class' => 'navbar navbar-expand-md navbar-dark bg-dark fixed-top',
+            'class' => 'navbar navbar-expand-md navbar-dark bg-dark',
         ],
     ]);
     $menuItems = [
@@ -67,7 +69,7 @@ AppAsset::register($this);
 </header>
 
 <main role="main" class="flex-shrink-0">
-    <div class="container margin260T">
+    <div class="container">
         <?= Breadcrumbs::widget([
             'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
         ]) ?>

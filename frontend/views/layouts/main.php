@@ -7,6 +7,7 @@ use common\widgets\Alert;
 use frontend\assets\AppAsset;
 use yii\bootstrap5\Breadcrumbs;
 use yii\bootstrap5\Html;
+use yii\helpers\Url;
 use yii\bootstrap5\Nav;
 use yii\bootstrap5\NavBar;
 
@@ -18,6 +19,7 @@ AppAsset::register($this);
 <head>
     <meta charset="<?= Yii::$app->charset ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <?=$this->registerLinkTag(['rel' => 'icon', 'type' => 'image/png', 'href' => Url::to('@web/favicon.ico')])?>
     <?php $this->registerCsrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
@@ -31,7 +33,7 @@ AppAsset::register($this);
         'brandLabel' => Html::img('@web/images/logo-completo-removebg.png',['alt' => Yii::$app->name, 'class' => 'img-logo']),
         'brandUrl' => Yii::$app->homeUrl,
         'options' => [
-            'class' => 'navbar navbar-expand-md navbar-dark bg-dark fixed-top',
+            'class' => 'navbar navbar-expand-md navbar-dark bg-dark',
         ],
     ]);
     $menuItems = [
@@ -66,49 +68,56 @@ AppAsset::register($this);
 </header>
 
 <main role="main" class="flex-shrink-0">
-        <?= Breadcrumbs::widget([
-            'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
-        ]) ?>
+        <?php if(isset($this->params['breadcrumbs'])):?>
+          <?=$this->render('//commons/_breadcrumbs', [
+            'breadcrumbs' => $this->params['breadcrumbs']
+          ])?>
+        <?php endif?>
         <?= Alert::widget() ?>
         <?= $content ?>
 </main>
 
-<footer id="footer" class="mt-auto py-3 bg-light">
- 
-        <div id="rodape">
-                <div class="row">
-                    <div class="col-6">
-                        <b>Acompanhe nossas redes:</b>
-                        <ul>
-                            <li><a class="link link--metis" rel="noreferrer" href="https://www.instagram.com/observatorioifsul/" target="_blank">Instagram</a></li>
-                            <li><a class="link link--metis" rel="noreferrer" href="#" target="_blank">Facebook</a></li>
-                            <li><a class="link link--metis" rel="noreferrer" href="https://www.youtube.com/c/Observat%C3%B3rioEPTIFSul" target="_blank">YouTube</a></li>
-                        </ul>                            
-                    </div>
-
-                    <div class="col-6">
-                        <b>Institucional e parcerias:</b>
-                        <ul>
-                            <li><a class="link link--metis" rel="noreferrer" href="http://www.ifsul.edu.br/" target="_blank">IFSul</a></li>
-                            <li><a class="link link--metis" rel="noreferrer" href="https://www.sinasefeifsul.org.br/" target="_blank">Sinasefe IFSul</a></li>
-                            <li><a class="link link--metis" rel="noreferrer" href="https://www.ufrgs.br/observatoriodoensinomedio-rs/" target="_blank">Observatório do Ensino Médio – RS</a></li>
-                        </ul>
-                    </div>
-                </div> 
-
-                <div class="row">
-                        Nosso e-mail: observatorioept.ifsul(AT)gmail.com
-                </div>
-
-                <div class="row">
-                    
-                        Observatório EPT do IFSul. 2021. Todos os direitos reservados.
-                    
-                </div>
-            </div>
-    
-     
-</footer>
+<footer>
+    <div class="row container-fluid borda-top">
+      <div class="col-4 text-center logo-footer">
+        <?=Html::img('@web/images/Logo.png',['alt' => 'Triunfo']);?>
+        <div id="nome-observatorio"><strong>OBSERVATÓRIO</strong></div>
+        <div id="nome-ifsul">ept do IFSUL</div>
+      </div>
+      <div class="col-4 text-right">
+      O Observatório da Educação Profissional e Tecnológica (EPT) IFSul tem sua origem em demandas que tematizam a história e os rumos das políticas educacionais em EPT, trata-se de um projeto que conta com o apoio da Fapergs e da Seção Sinasefe IFSul.
+      </div>
+      <div class="col-4">
+        <div class="row">
+          <div class="col-12 box-footer">
+            <span class="material-symbols-outlined">phone</span>
+            (51) 3654-6308
+          </div>
+          <div class="col-12 box-footer">
+            <span class="material-symbols-outlined">email</span>
+            observatorioept@ifsul.rs.br
+          </div>
+        </div>
+      </div>
+      <div class="col-12">
+        <hr />
+        <div class="text-right">
+            <a href="" target="_blank" class="midia-footer">
+            <?=Html::img('@web/images/facebook.png',['alt' => 'Facebook','width'=>'24']);?></a>
+            <a href="https://www.instagram.com/observatorioifsul/" target="blank" class="midia-footer">
+            <?=Html::img('@web/images/instagram.png',['alt' => 'Instagram','width'=>'24']);?></a>
+            <a href="https://www.youtube.com/c/Observat%C3%B3rioEPTIFSul" target="_blank" class="midia-footer">
+            <?=Html::img('@web/images/youtube.png',['alt' => 'Youtube','width'=>'24']);?></a>
+            <a href="" target="_blank" class="midia-footer">
+            <?=Html::img('@web/images/twitter.png',['alt' => 'Twitter','width'=>'24']);?></a>
+            <a href="" target="_blank" class="midia-footer">
+            <?=Html::img('@web/images/spotify.png',['alt' => 'Spotify','width'=>'24']);?></a>
+            <a href="" target="_blank" class="midia-footer">
+            <?=Html::img('@web/images/whatsapp.png',['alt' => 'Whatsapp','width'=>'24']);?></a>
+        </div>
+      </div>
+    </div>
+  </footer>
 
 
 <?php $this->endBody() ?>

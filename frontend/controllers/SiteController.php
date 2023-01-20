@@ -12,6 +12,7 @@ use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use common\models\LoginForm;
 use common\models\Evento;
+use common\models\Artigo;
 use frontend\models\PasswordResetRequestForm;
 use frontend\models\ResetPasswordForm;
 use frontend\models\SignupForm;
@@ -77,6 +78,7 @@ class SiteController extends Controller
     public function actionIndex()
     {
         $eventos = Evento::find()->all();
+        //$artigo = Artigo::find()->orderBy(['year' => SORT_DESC])->where(['destaque' => true])->one();
 
         $eventosMes = Evento::find()->where('extract(day from data_inicio) = extract(day from now())')->andWhere('extract(month from data_inicio) = extract(month from now())')->andWhere('extract(year from data_inicio) = extract(year from now())')->all();
         $events = [];
@@ -88,13 +90,14 @@ class SiteController extends Controller
             $Event->title = $evento->titulo;
             $Event->start = date('Y-m-d\Th:i:s\Z',strtotime($evento->data_inicio));
             $Event->end = date('Y-m-d\Th:i:s\Z',strtotime($evento->data_fim));
-            $Event->url = '/evento/view/'.$evento->id;
+            $Event->url = '?r=evento%2Fview&id='.$evento->id;
             $events[] = $Event;
         }
 
         return $this->render('index',[
             'events' => $events,
-            'eventosMes' => $eventosMes
+            'eventosMes' => $eventosMes,
+           // 'artigo' => $artigo
         ]);
     }
 

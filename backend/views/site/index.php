@@ -4,7 +4,7 @@
 
 $this->title = 'Observatório do IFSUL';
 ?>
-<div class="site-index margin110T">
+<div class="site-index">
 
     <div class="jumbotron text-center bg-transparent">
         <br><br>

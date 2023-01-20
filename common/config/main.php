@@ -9,6 +9,19 @@ return [
         'cache' => [
             'class' => \yii\caching\FileCache::class,
         ],
+        'formatter' => [
+            'class' => 'yii\i18n\Formatter',
+            'locale' => 'pt-BR',
+            'defaultTimeZone' => 'UTC',
+            'timeZone' => 'UTC',
+            'dateFormat' => 'php:d/m/Y',
+            'datetimeFormat'=>'php:d/m/Y H:i',
+            'timeFormat'=>'php:H:i',
+            'currencyCode' => 'BRL',
+            'thousandSeparator' => '.',
+            'decimalSeparator' => ',',
+            'nullDisplay' => '',
+        ],
     ],
     'modules' => [
         'gridview' =>  [
@@ -37,7 +50,10 @@ return [
                 'datetime' => ['pluginOptions'=>['autoclose'=>true]]
             ],
         ],
-    ],'params' => [
+    ], 
+    'timeZone' => 'America/Sao_Paulo',
+    'language' => 'pt-BR',
+    'params' => [
         'icon-framework' => 'fa',
         'bsVersion' => '5.x'
     ],

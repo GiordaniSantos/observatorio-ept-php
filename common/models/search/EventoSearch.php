@@ -12,6 +12,10 @@ use yii\helpers\ArrayHelper;
  */
 class EventoSearch extends Evento
 {
+    public $periodo;
+
+    public $order;
+    public $pageSize = 20;
         /**
      * @inheritdoc
      */
@@ -61,6 +65,12 @@ class EventoSearch extends Evento
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'sort' => [
+                'defaultOrder' => $this->order
+            ],
+            'pagination' => [
+                'pageSize' => $this->pageSize,
+            ],
         ]);
 
         $this->load($params);
