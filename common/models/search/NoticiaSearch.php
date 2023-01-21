@@ -5,12 +5,26 @@ namespace common\models\search;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use common\models\Noticia;
+use yii\helpers\ArrayHelper;
 
 /**
  * NoticiaSearch represents the model behind the search form of `common\models\Noticia`.
  */
 class NoticiaSearch extends Noticia
 {
+    public $order;
+    public $pageSize = 20;
+
+            /**
+     * @inheritdoc
+     */
+    public function attributes()
+    {
+        return ArrayHelper::merge(parent::attributes(), [
+            'q'
+        ]);
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -18,7 +32,7 @@ class NoticiaSearch extends Noticia
     {
         return [
             [['news_id'], 'integer'],
-            [['authors', 'title', 'description', 'date', 'createdAt', 'updatedAt'], 'safe'],
+            [['authors', 'title', 'description', 'data_publicacao', 'createdAt', 'updatedAt', 'destaque', 'principal', 'resumo'], 'safe'],
         ];
     }
 
@@ -44,8 +58,15 @@ class NoticiaSearch extends Noticia
 
         // add conditions that should always apply here
 
-        $dataProvider = new ActiveDataProvider([
+        
+         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'sort' => [
+                'defaultOrder' => $this->order
+            ],
+            'pagination' => [
+                'pageSize' => $this->pageSize,
+            ],
         ]);
 
         $this->load($params);
@@ -59,7 +80,10 @@ class NoticiaSearch extends Noticia
         // grid filtering conditions
         $query->andFilterWhere([
             'news_id' => $this->news_id,
-            'date' => $this->date,
+            'data_publicacao' => $this->data_publicacao,
+            'destaque' => $this->destaque,
+            'principal' => $this->principal,
+            'resumo' => $this->resumo,
             'createdAt' => $this->createdAt,
             'updatedAt' => $this->updatedAt,
         ]);

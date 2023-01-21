@@ -23,9 +23,15 @@ use kartik\datecontrol\DateControl;
     </div>
     <div class="row">
         <div class="col-md-12">
-            <?= $form->field($model, 'date')->widget(DateControl::class, [
+            <?= $form->field($model, 'data_publicacao')->widget(DateControl::class, [
                 'type' => DateControl::FORMAT_DATETIME
             ])?>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <?= $form->field($model, 'resumo')->textInput(['maxlength' => true]) ?>
         </div>
     </div>
 
@@ -34,7 +40,15 @@ use kartik\datecontrol\DateControl;
             <?= $form->field($model, 'description')->textarea(['rows' => 6]) ?>
         </div>
     </div>
-
+<br>
+    <div class="row">
+        <div class="col-md-2">
+            <?= $form->field($model, 'destaque')->checkbox() ?>
+        </div>
+        <div class="col-md-2">
+            <?= $form->field($model, 'principal')->checkbox() ?>
+        </div>
+    </div>
 
 
 

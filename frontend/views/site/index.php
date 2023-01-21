@@ -25,57 +25,36 @@ $this->title = 'Observatório do IFSUL';
          <div class="col-12">
             <h2 class="titulo">Últimas notícias<span class="square"></span></h2>
          </div>
-         <div class="col-6">
-         <a href="<?=Url::to(['noticia/view', 'id' =>1])?>">
-            <article class="col-12 nopadding home-noticia-principal">
-               <?= Html::img("@web/images/noticia-capa.jpg", ['width' => '100%'])?>		  			
-               <strong>
-                  <h3>teste</h3>
-                  <span class="tarja"></span>
-               </strong>
-            </article>
-         </a>
-         </div>
+         <?php if($noticiaPrincipal):?>
+            <div class="col-6">
+               <a href="<?=Url::to(['noticia/view', 'id' => $noticiaPrincipal->news_id])?>">
+                  <article class="col-12 nopadding home-noticia-principal">
+                     <?= Html::img("@web/images/indisponivel.jpg", ['width' => '100%'])?>		  			
+                     <strong>
+                        <h3><?=$noticiaPrincipal->title?></h3>
+                        <span class="tarja"></span>
+                     </strong>
+                  </article>
+               </a>
+            </div>
+         <?php endif?>
+         <?php if($noticiasDestaque):?>
          <div class="col-6 noticia-secundaria-menor">
             <div id="noticia-secundaria" class="row">
-               <div class="col-6">
-                  <a href="<?=Url::to(['noticia/view', 'id' =>1])?>" class="d-block">
-                     <div class="home-noticia-secundaria">
-                        <?=Html::img("@web/images/noticia-capa.jpg", ['width' => '100%', 'title' => "teste"])?>
-                        <h3>teste</h3>
-                        <div class="tarja"></div>
-                     </div>
-                  </a>
-               </div>
-               <div class="col-6">
-                  <a href="<?=Url::to(['noticia/view', 'id' =>1])?>" class="d-block">
-                     <div class="home-noticia-secundaria">
-                        <?=Html::img("@web/images/noticia-capa.jpg", ['width' => '100%', 'title' => "teste"])?>
-                        <h3>teste</h3>
-                        <div class="tarja"></div>
-                     </div>
-                  </a>
-               </div>
-               <div class="col-6">
-                  <a href="<?=Url::to(['noticia/view', 'id' =>1])?>" class="d-block">
-                     <div class="home-noticia-secundaria">
-                        <?=Html::img("@web/images/noticia-capa.jpg", ['width' => '100%', 'title' => "teste"])?>
-                        <h3>teste</h3>
-                        <div class="tarja"></div>
-                     </div>
-                  </a>
-               </div>
-               <div class="col-6">
-                  <a href="<?=Url::to(['noticia/view', 'id' =>1])?>" class="d-block">
-                     <div class="home-noticia-secundaria">
-                        <?=Html::img("@web/images/noticia-capa.jpg", ['width' => '100%', 'title' => "teste"])?>
-                        <h3>teste</h3>
-                        <div class="tarja"></div>
-                     </div>
-                  </a>
-               </div>
+               <?php foreach($noticiasDestaque as $noticiaDestaque):?>
+                  <div class="col-6">
+                     <a href="<?=Url::to(['noticia/view', 'id' =>1])?>" class="d-block">
+                        <div class="home-noticia-secundaria">
+                           <?=Html::img("@web/images/indisponivel.jpg", ['width' => '100%', 'title' => "teste"])?>
+                           <h3><?=$noticiaDestaque->title?></h3>
+                           <div class="tarja"></div>
+                        </div>
+                     </a>
+                  </div>
+               <?php endforeach?>
             </div>
          </div>
+         <?php endif?>
          <div class="col-ce1-24 text-center">
             <br /><?=Html::a('Todas', ['/noticia/index'], ['class' => 'btn-padrao'])?>
          </div>

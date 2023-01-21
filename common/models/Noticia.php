@@ -47,7 +47,9 @@ class Noticia extends \yii\db\ActiveRecord
     {
         return [
             [['authors', 'title', 'description'], 'string'],
-            [['date', 'createdAt', 'updatedAt'], 'safe'],
+            [['data_publicacao', 'createdAt', 'updatedAt'], 'safe'],
+            [[ 'destaque', 'principal'], 'boolean'],
+            [['resumo'], 'string', 'max' => 512],
             [['title'], 'required'],
         ];
     }
@@ -61,8 +63,11 @@ class Noticia extends \yii\db\ActiveRecord
             'news_id' => 'News ID',
             'authors' => 'Autor(es)',
             'title' => 'Titulo',
+            'resumo' => 'Resumo',
+            'destaque' => 'Destaque?',
+            'principal' => 'Principal?',
             'description' => 'Descrição',
-            'date' => 'Data de publicação',
+            'data_publicacao' => 'Data de publicação',
             'createdAt' => 'Created At',
             'updatedAt' => 'Updated At',
         ];

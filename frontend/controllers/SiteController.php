@@ -13,6 +13,7 @@ use yii\filters\AccessControl;
 use common\models\LoginForm;
 use common\models\Evento;
 use common\models\Projeto;
+use common\models\Noticia;
 use common\models\Artigo;
 use frontend\models\PasswordResetRequestForm;
 use frontend\models\ResetPasswordForm;
@@ -81,6 +82,8 @@ class SiteController extends Controller
         $eventos = Evento::find()->all();
         $artigo = Artigo::find()->orderBy(['data_publicacao' => SORT_DESC])->where(['destaque' => true])->one();
         $projetos = Projeto::find()->orderBy(['data_publicacao' => SORT_DESC])->where(['destaque' => true])->all();
+        $noticiaPrincipal = Noticia::find()->orderBy(['destaque' => SORT_DESC, 'data_publicacao' => SORT_DESC])->where(['principal' => TRUE])->one();
+        $noticiasDestaque = Noticia::find()->orderBy(['destaque' => SORT_DESC, 'data_publicacao' => SORT_DESC])->where(['!=', 'news_id', $noticiaPrincipal->news_id ?? null])->andWhere(['destaque'=>true])->limit(4)->all();
 
         $eventosMes = Evento::find()->where('extract(day from data_inicio) = extract(day from now())')->andWhere('extract(month from data_inicio) = extract(month from now())')->andWhere('extract(year from data_inicio) = extract(year from now())')->all();
         $events = [];
@@ -98,6 +101,8 @@ class SiteController extends Controller
 
         return $this->render('index',[
             'events' => $events,
+            'noticiaPrincipal' => $noticiaPrincipal,
+            'noticiasDestaque' => $noticiasDestaque,
             'eventosMes' => $eventosMes,
             'artigo' => $artigo,
             'projetos' => $projetos
