@@ -69,10 +69,10 @@ $this->title = 'Observatório do IFSUL';
    <div class="row">
       <?php if($artigo):?>
       <div class="col-6">
-         <div class="box-lista" style="height:650px; overflow-y:auto">
+         <div class="box-lista" style="height:600px; overflow-y:auto">
             <h2 class="titulo">Artigo<span class="square"></span></h2>
             <div class="row">
-               <div class="col-ce1-24">
+               <div class="col-12">
                   <br />
                   <a href="<?=Url::to(['artigo/view', 'id' =>$artigo->article_id])?>"><h5 class="nomargin nopadding text-uppercase"><strong><?=$artigo->title?></strong></h5></a>
                   <p>
@@ -89,7 +89,7 @@ $this->title = 'Observatório do IFSUL';
       </div>
       <?php endif?>
       <div class="col-6">
-         <div class="box-lista" style="height:650px">
+         <div class="box-lista" style="height:600px">
             <h2 class="titulo">Agenda do observatório<span class="square"></span></h2>
             <div class="row">
                <div id="calendario" class="radius4 marginTop25">

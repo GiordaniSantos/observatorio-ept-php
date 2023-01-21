@@ -5,12 +5,16 @@ namespace common\models\search;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use common\models\Membro;
+use yii\helpers\ArrayHelper;
 
 /**
  * MembroSearch represents the model behind the search form of `common\models\Membro`.
  */
 class MembroSearch extends Membro
 {
+    public $order;
+    public $pageSize = 20;
+
     /**
      * {@inheritdoc}
      */
@@ -46,6 +50,12 @@ class MembroSearch extends Membro
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'sort' => [
+                'defaultOrder' => $this->order
+            ],
+            'pagination' => [
+                'pageSize' => $this->pageSize,
+            ],
         ]);
 
         $this->load($params);

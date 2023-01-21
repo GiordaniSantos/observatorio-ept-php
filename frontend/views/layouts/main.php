@@ -38,7 +38,7 @@ AppAsset::register($this);
     ]);
     $menuItems = [
         ['label' => 'Home', 'url' => ['/site/index']],
-        ['label' => 'Membros', 'url' => ['/membros/index']],
+        ['label' => 'Membros', 'url' => ['/membro/index']],
         ['label' => 'Projetos', 'url' => ['/projeto/index']],
         ['label' => 'Noticías', 'url' => ['/noticia/index']],
         ['label' => 'Artigos', 'url' => ['/artigo/index']],
@@ -67,7 +67,7 @@ AppAsset::register($this);
     ?>
 </header>
 
-<main role="main" class="flex-shrink-0">
+<main role="main" class="flex-shrink-0 bg-dark">
         <?php if(isset($this->params['breadcrumbs'])):?>
           <?=$this->render('//commons/_breadcrumbs', [
             'breadcrumbs' => $this->params['breadcrumbs']
