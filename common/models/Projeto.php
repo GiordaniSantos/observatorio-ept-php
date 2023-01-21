@@ -51,7 +51,8 @@ class Projeto extends \yii\db\ActiveRecord
         return [
             [['title', 'description', 'members', 'financiers'], 'string'],
             [['title'], 'required'],
-            [['createdAt', 'updatedAt'], 'safe'],
+            [[ 'destaque'], 'boolean'],
+            [['createdAt', 'updatedAt', 'data_publicacao'], 'safe'],
             [['curriculumId'], 'integer'],
             [['curriculumId'], 'exist', 'skipOnError' => true, 'targetClass' => Curriculo::class, 'targetAttribute' => ['curriculumId' => 'curriculum_id']],
         ];
@@ -67,6 +68,8 @@ class Projeto extends \yii\db\ActiveRecord
             'title' => 'Titulo',
             'description' => 'Descrição',
             'members' => 'Membros',
+            'destaque' => 'Destaque',
+            'data_publicacao' => 'Data de publicação',
             'financiers' => 'Financiadores',
             'createdAt' => 'Data criação',
             'updatedAt' => 'Data modificação',

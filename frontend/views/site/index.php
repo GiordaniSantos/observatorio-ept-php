@@ -103,7 +103,7 @@ $this->title = 'Observatório do IFSUL';
                   <?=$artigo->resumo?>
                   </p>
                   <br />
-                  <a href="<?=Url::to(['noticia/view', 'id' =>1])?>" class="btn-padrao fixo">saiba mais</a>
+                  <a href="<?=Url::to(['artigo/view', 'id' =>$artigo->article_id])?>" class="btn-padrao fixo">saiba mais</a>
                </div>
             </div>
          </div>
@@ -148,48 +148,21 @@ $this->title = 'Observatório do IFSUL';
          </div>
       </div>
       <div class="col-6">
+         <?php if($projetos):?>
             <div class="box-lista" style="height:550px">
                <h2 class="titulo">Projetos<span class="square"></span></h2>
                <div class="row">
                   <div class="col-12" style="height:450px; overflow-y:auto">
-                     
+                        <?php foreach($projetos as $projeto):?>
                         <div class="row lista-departamento-home">
-                           <div class="col-1"><span class="material-symbols-outlined">account_circle</span></div>
-                           <div class="col-11"><a href="/departamento"><strong>Departamentos</strong><br /><small>2 unidades</small></a></div>
+                           <div class="col-1"><span class="material-symbols-outlined">book</span></div>
+                           <div class="col-11"><a href=<?=Url::to(['projeto/view', 'id' =>$projeto->project_id])?>><strong><?=$projeto->title?></strong><br /><small></small></a></div>
                         </div>
-                        <div class="row lista-departamento-home">
-                           <div class="col-1"><span class="material-symbols-outlined">account_circle</span></div>
-                           <div class="col-1"><a href="/departamento?DepartamentoSearch%5Bid_secretaria%5D=&DepartamentoSearch%5Bid_departamento_categoria%5D=1&DepartamentoSearch%5Bq%5D="><strong>Setores</strong><br /><small>unidades</small></a></div>
-                        </div>
-                        <div class="row lista-departamento-home">
-                           <div class="col-1"><span class="material-symbols-outlined">account_circle</span></div>
-                           <div class="col-11"><a href="/departamento?DepartamentoSearch%5Bid_secretaria%5D=&DepartamentoSearch%5Bid_departamento_categoria%5D=2&DepartamentoSearch%5Bq%5D="><strong>Órgãos</strong><br /><small> documentos</small></a></div>
-                        </div>
-                   
-                     
-                        <div class="row lista-departamento-home">
-                           <div class="col-1"><span class="material-symbols-outlined">account_circle</span></div>
-                           <div class="col-11"><a href="/departamento?DepartamentoSearch%5Bid_secretaria%5D=&DepartamentoSearch%5Bid_departamento_categoria%5D=3&DepartamentoSearch%5Bq%5D="><strong>Conselhos</strong><br /><small> documentos</small></a></div>
-                        </div>
-                     
-                     
-                        <div class="row lista-departamento-home">
-                           <div class="col-1"><span class="material-symbols-outlined">account_circle</span></div>
-                           <div class="col-11"><a href="/escola"><strong>Escolas Municipais</strong><br /><small> unidades</small></a></div>
-                        </div>
-                  
-                        <div class="row lista-departamento-home">
-                           <div class="col-1"><span class="material-symbols-outlined">account_circle</span></div>
-                           <div class="col-11"><a href="/unidade-saude"><strong>Unidades de Saúde</strong><br /><small> unidades</small></a></div>
-                        </div>
-                     
-                        <div class="row lista-departamento-home">
-                           <div class="col-1"><span class="material-symbols-outlined">account_circle</span></div>
-                           <div class="col-11"><a href="/entidade"><strong>Entidades Municipais</strong><br /><small> unidades</small></a></div>
-                        </div>
+                        <?php endforeach?>
                   </div>
                </div>
             </div>
+         <?php endif?>
          </div>
    </div>
 

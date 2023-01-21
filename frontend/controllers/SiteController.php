@@ -12,6 +12,7 @@ use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use common\models\LoginForm;
 use common\models\Evento;
+use common\models\Projeto;
 use common\models\Artigo;
 use frontend\models\PasswordResetRequestForm;
 use frontend\models\ResetPasswordForm;
@@ -79,6 +80,7 @@ class SiteController extends Controller
     {
         $eventos = Evento::find()->all();
         $artigo = Artigo::find()->orderBy(['data_publicacao' => SORT_DESC])->where(['destaque' => true])->one();
+        $projetos = Projeto::find()->orderBy(['data_publicacao' => SORT_DESC])->where(['destaque' => true])->all();
 
         $eventosMes = Evento::find()->where('extract(day from data_inicio) = extract(day from now())')->andWhere('extract(month from data_inicio) = extract(month from now())')->andWhere('extract(year from data_inicio) = extract(year from now())')->all();
         $events = [];
@@ -97,7 +99,8 @@ class SiteController extends Controller
         return $this->render('index',[
             'events' => $events,
             'eventosMes' => $eventosMes,
-            'artigo' => $artigo
+            'artigo' => $artigo,
+            'projetos' => $projetos
         ]);
     }
 

@@ -35,6 +35,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'data_publicacao:DateTime',
             'dissemination_vehicle',
             'access_link',
+            'destaque:boolean',
             'createdAt:DateTime',
             'updatedAt:DateTime',
             'curriculumId',

@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use kartik\datecontrol\DateControl;
 
 /** @var yii\web\View $this */
 /** @var common\models\Projeto $model */
@@ -21,8 +22,13 @@ use yii\widgets\ActiveForm;
         </div>
     </div>
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-6">
             <?= $form->field($model, 'financiers')->textInput(['maxlength' => true]) ?>
+        </div>
+        <div class="col-md-6">
+            <?= $form->field($model, 'data_publicacao')->widget(DateControl::class, [
+                'type' => DateControl::FORMAT_DATETIME
+            ])?>
         </div>
     </div>
 
@@ -35,6 +41,12 @@ use yii\widgets\ActiveForm;
     <div class="row">
         <div class="col-md-6">
             <?= $form->field($model, 'curriculumId')->textInput() ?>
+        </div>
+    </div>
+<br>
+    <div class="row">
+        <div class="col-md-2">
+            <?= $form->field($model, 'destaque')->checkbox() ?>
         </div>
     </div>
 
