@@ -13,7 +13,7 @@ $segundoNivel = is_array($segundoNivel)? ArrayHelper::getValue($segundoNivel, 'l
     <div class="container">
         <div class="row d-flex justify-content-between">
             <div class="col-4 text-left">
-                <h2 class="titulo"><?=$segundoNivel?><span class="square"></span></h2>
+                <h2 class="titulo-bc"><?=$segundoNivel?><span class="square"></span></h2>
             </div>
             <div class="col-8 text-right">
                 <?=Breadcrumbs::widget([

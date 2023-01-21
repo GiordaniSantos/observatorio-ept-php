@@ -41,9 +41,9 @@ AppAsset::register($this);
         ['label' => 'Membros', 'url' => ['/members/index']],
         ['label' => 'Projetos', 'url' => ['/projects/index']],
         ['label' => 'Noticías', 'url' => ['/news/index']],
-        ['label' => 'Artigos', 'url' => ['/articles/index']],
+        ['label' => 'Artigos', 'url' => ['/artigo/index']],
         ['label' => 'Teses', 'url' => ['/theses/index']],
-        ['label' => 'Agenda', 'url' => ['/schedules/index']],
+        ['label' => 'Agenda', 'url' => ['/evento/index']],
     ];
     if (Yii::$app->user->isGuest) {
         $menuItems[] = ['label' => 'Signup', 'url' => ['/site/signup']];

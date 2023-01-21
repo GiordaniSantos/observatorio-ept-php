@@ -30,7 +30,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
             'authors',
             'title',
-            'year',
+            'data_publicacao:DateTime',
             'dissemination_vehicle',
             //'access_link',
             //'createdAt',

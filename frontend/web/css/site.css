@@ -600,3 +600,34 @@ footer i {
   border-radius:12px;
   margin:0 0 10px 0 !important;
 }
+
+.titulo-bc {
+  text-align: left;
+  position: relative;
+  color: rgb(0,75,130);
+  text-transform: uppercase;
+  font-weight: 900;
+  font-size: 16px;
+  line-height: 18px;
+  width: 300px;
+  padding: 10px 0;
+  margin: 20px 0;
+}
+
+.box {
+  background-color: rgba(0,40,75,.05);
+  padding: 15px;
+  border-radius: 12px;
+  position: relative;
+}
+
+.padding-busca {
+  padding: 15px;
+  border-radius: 8px;
+}
+
+h3 {
+  font-size: 26px;
+  line-height: 120%;
+  margin: 20px 0;
+}

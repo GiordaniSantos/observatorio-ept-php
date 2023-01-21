@@ -5,20 +5,35 @@ namespace common\models\search;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use common\models\Artigo;
+use yii\helpers\ArrayHelper;
 
 /**
  * ArtigoSearch represents the model behind the search form of `common\models\Artigo`.
  */
 class ArtigoSearch extends Artigo
 {
+
+    public $order;
+    public $pageSize = 20;
+
+            /**
+     * @inheritdoc
+     */
+    public function attributes()
+    {
+        return ArrayHelper::merge(parent::attributes(), [
+            'q'
+        ]);
+    }
+
     /**
      * {@inheritdoc}
      */
     public function rules()
     {
         return [
-            [['article_id', 'year', 'curriculumId'], 'integer'],
-            [['authors', 'title', 'dissemination_vehicle', 'access_link', 'createdAt', 'updatedAt'], 'safe'],
+            [['article_id', 'data_publicacao', 'curriculumId'], 'integer'],
+            [['authors', 'title', 'dissemination_vehicle', 'access_link', 'createdAt', 'updatedAt' , 'destaque', 'q'], 'safe'],
         ];
     }
 
@@ -46,12 +61,18 @@ class ArtigoSearch extends Artigo
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'sort' => [
+                'defaultOrder' => $this->order
+            ],
+            'pagination' => [
+                'pageSize' => $this->pageSize,
+            ],
         ]);
 
         $this->load($params);
 
         if (!$this->validate()) {
-            // uncomment the following line if you do not want to return any records when validation fails
+            // uncomment the following line if  ou do not want to return any records when validation fails
             // $query->where('0=1');
             return $dataProvider;
         }
@@ -59,8 +80,9 @@ class ArtigoSearch extends Artigo
         // grid filtering conditions
         $query->andFilterWhere([
             'article_id' => $this->article_id,
-            'year' => $this->year,
+            'data_publicacao' => $this->data_publicacao,
             'createdAt' => $this->createdAt,
+            'destaque' => $this->destaque,
             'updatedAt' => $this->updatedAt,
             'curriculumId' => $this->curriculumId,
         ]);

@@ -78,7 +78,7 @@ class SiteController extends Controller
     public function actionIndex()
     {
         $eventos = Evento::find()->all();
-        //$artigo = Artigo::find()->orderBy(['year' => SORT_DESC])->where(['destaque' => true])->one();
+        $artigo = Artigo::find()->orderBy(['data_publicacao' => SORT_DESC])->where(['destaque' => true])->one();
 
         $eventosMes = Evento::find()->where('extract(day from data_inicio) = extract(day from now())')->andWhere('extract(month from data_inicio) = extract(month from now())')->andWhere('extract(year from data_inicio) = extract(year from now())')->all();
         $events = [];
@@ -97,7 +97,7 @@ class SiteController extends Controller
         return $this->render('index',[
             'events' => $events,
             'eventosMes' => $eventosMes,
-           // 'artigo' => $artigo
+            'artigo' => $artigo
         ]);
     }
 

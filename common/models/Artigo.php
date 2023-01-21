@@ -10,7 +10,7 @@ use Yii;
  * @property int $article_id
  * @property string|null $authors
  * @property string|null $title
- * @property int|null $year
+ * @property int|null $data_publicacao
  * @property string|null $dissemination_vehicle
  * @property string|null $access_link
  * @property string $createdAt
@@ -50,9 +50,12 @@ class Artigo extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['year', 'curriculumId'], 'integer'],
+            [['curriculumId'], 'integer'],
             [['title'], 'required'],
-            [['createdAt', 'updatedAt'], 'safe'],
+            [['createdAt', 'updatedAt', 'data_publicacao'], 'safe'],
+            [['descricao'], 'string'],
+            [['resumo'], 'string', 'max' => 512],
+            [[ 'destaque'], 'boolean'],
             [['authors', 'title', 'dissemination_vehicle', 'access_link'], 'string', 'max' => 255],
             [['curriculumId'], 'exist', 'skipOnError' => true, 'targetClass' => Curriculo::class, 'targetAttribute' => ['curriculumId' => 'curriculum_id']],
         ];
@@ -67,7 +70,10 @@ class Artigo extends \yii\db\ActiveRecord
             'article_id' => 'Article ID',
             'authors' => 'Autor(es)',
             'title' => 'Titulo',
-            'year' => 'Ano de publicação',
+            'resumo' => 'Resumo',
+            'descricao' => 'Descrição',
+            'destaque' => 'Destaque',
+            'data_publicacao' => 'Data de publicação',
             'dissemination_vehicle' => 'Veiculo de disseminação',
             'access_link' => 'Link',
             'createdAt' => 'Data criação',

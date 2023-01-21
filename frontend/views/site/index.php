@@ -88,25 +88,27 @@ $this->title = 'Observatório do IFSUL';
 <!-- LICITAÇÕES , LEGISLAÇÕES, CONTRATAÇÕES -->
 <section class="container">
    <div class="row">
+      <?php if($artigo):?>
       <div class="col-6">
          <div class="box-lista" style="height:650px; overflow-y:auto">
             <h2 class="titulo">Artigo<span class="square"></span></h2>
             <div class="row">
                <div class="col-ce1-24">
                   <br />
-                  <a href="#"><h5 class="nomargin nopadding text-uppercase"><strong>Pregão Presencial nº 02/2023</strong></h5></a>
+                  <a href="<?=Url::to(['artigo/view', 'id' =>$artigo->article_id])?>"><h5 class="nomargin nopadding text-uppercase"><strong><?=$artigo->title?></strong></h5></a>
                   <p>
-                  Abertura: 11/01<br />
-                  Horário: 10:00<br />
-                  Local: Setor de Licitações - Prefeitura de Triunfo<hr />
-                  Contratação de empresa para aquisição de refletores conforme termo de referência, para atender a demanda da Secretaria Municipal de Juventude e Esporte.
+                  Data de publicação: <?=Yii::$app->formatter->asDate($artigo->data_publicacao,'short');?><br />
+                  Veículo de publicação: <?=$artigo->dissemination_vehicle?><br />
+                  Autor(es): <?=$artigo->authors?><hr />
+                  <?=$artigo->resumo?>
                   </p>
                   <br />
-                  <a href="#" class="btn-padrao fixo">saiba mais</a>
+                  <a href="<?=Url::to(['noticia/view', 'id' =>1])?>" class="btn-padrao fixo">saiba mais</a>
                </div>
             </div>
          </div>
       </div>
+      <?php endif?>
       <div class="col-6">
          <div class="box-lista" style="height:650px">
             <h2 class="titulo">Agenda do observatório<span class="square"></span></h2>
@@ -131,7 +133,7 @@ $this->title = 'Observatório do IFSUL';
    <div class="row">
       <div class="col-6">
          <div class="box-lista" style="height:550px; overflow-y:auto">
-            <h2 class="titulo">Contratações<span class="square"></span></h2>
+            <h2 class="titulo">Tese<span class="square"></span></h2>
             <div class="row">
                <div class="col-12">
                <br />
