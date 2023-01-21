@@ -110,24 +110,26 @@ $this->title = 'Observatório do IFSUL';
 <br><br>
 <section class="container">
    <div class="row">
+      <?php if($tese):?>
       <div class="col-6">
          <div class="box-lista" style="height:550px; overflow-y:auto">
             <h2 class="titulo">Tese<span class="square"></span></h2>
             <div class="row">
                <div class="col-12">
                <br />
-                  <a href="#"><h5 class="nomargin nopadding text-uppercase"><strong>Processo Seletivo nº 19/2022</strong></h5></a>
+                  <a href="#"><h5 class="nomargin nopadding text-uppercase"><strong><?=$tese->title?></strong></h5></a><br>
                   <p>
-                  O Prefeito de Triunfo, no uso de suas atribuições legais, torna público para conhecimento dos interessados que estão abertas as inscrições para o Banco de Cadastro Reserva para Contratação Emergencial da Secretaria Municipal de Cidadania e Inclusão Social, por meio de prova de títulos para o exercício da função de Assistente Social, amparado em excepcional interesse público, com fulcro no art. 37, IX, da Constituição da República, e art. 194 da Lei Municipal nº 2.405/2006.
+                  <?=$tese->description?>
                   </p>
                   <br />
-                  <a href="#" class="btn-padrao fixo">convocações</a>
+                  <?=Html::a('Todas', ['/tese/index'], ['class' => 'btn-padrao fixo'])?>
                </div>
             </div>
          </div>
       </div>
+      <?php endif?>
+      <?php if($projetos):?>
       <div class="col-6">
-         <?php if($projetos):?>
             <div class="box-lista" style="height:550px">
                <h2 class="titulo">Projetos<span class="square"></span></h2>
                <div class="row">
@@ -141,8 +143,8 @@ $this->title = 'Observatório do IFSUL';
                   </div>
                </div>
             </div>
-         <?php endif?>
          </div>
+         <?php endif?>
    </div>
 
 </section>

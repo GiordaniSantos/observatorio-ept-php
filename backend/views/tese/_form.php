@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use kartik\datecontrol\DateControl;
 
 /** @var yii\web\View $this */
 /** @var common\models\Tese $model */
@@ -31,20 +32,32 @@ use yii\widgets\ActiveForm;
     </div>
 
     <div class="row">
+        <div class="col-md-6">
+            <?= $form->field($model, 'access_link')->textInput(['maxlength' => true]) ?>
+        </div>
+        <div class="col-md-6">
+            <?= $form->field($model, 'data_publicacao')->widget(DateControl::class, [
+                'type' => DateControl::FORMAT_DATETIME
+            ])?>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <?= $form->field($model, 'resumo')->textInput(['maxlength' => true]) ?>
+        </div>
+    </div>
+
+    <div class="row">
         <div class="col-md-12">
             <?= $form->field($model, 'description')->textarea(['rows' => 6]) ?>
         </div>
     </div>
 
+    <br>
     <div class="row">
-        <div class="col-md-12">
-            <?= $form->field($model, 'access_link')->textInput(['maxlength' => true]) ?>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-md-12">
-            <?= $form->field($model, 'curriculumId')->textInput() ?>
+        <div class="col-md-2">
+            <?= $form->field($model, 'destaque')->checkbox() ?>
         </div>
     </div>
 <br>

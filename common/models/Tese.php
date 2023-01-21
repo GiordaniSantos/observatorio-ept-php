@@ -53,8 +53,10 @@ class Tese extends \yii\db\ActiveRecord
         return [
             [['title', 'description'], 'string'],
             [['title'], 'required'],
-            [['createdAt', 'updatedAt'], 'safe'],
+            [['createdAt', 'updatedAt', 'data_publicacao'], 'safe'],
             [['curriculumId'], 'integer'],
+            [[ 'destaque'], 'boolean'],
+            [['resumo'], 'string', 'max' => 512],
             [['institution', 'publishing_company', 'author', 'access_link'], 'string', 'max' => 255],
             [['curriculumId'], 'exist', 'skipOnError' => true, 'targetClass' => Curriculo::class, 'targetAttribute' => ['curriculumId' => 'curriculum_id']],
         ];
@@ -71,7 +73,10 @@ class Tese extends \yii\db\ActiveRecord
             'institution' => 'Instituição',
             'publishing_company' => 'Companhia de publicação',
             'author' => 'Autor',
+            'destaque' => 'Destaque',
             'description' => 'Descrição',
+            'resumo' => 'Resumo',
+            'data_publicacao' => 'Data de publicação',
             'access_link' => 'Link',
             'createdAt' => 'Data de criação',
             'updatedAt' => 'Data de modificação',

@@ -5,12 +5,26 @@ namespace common\models\search;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use common\models\Tese;
+use yii\helpers\ArrayHelper;
 
 /**
  * TeseSearch represents the model behind the search form of `common\models\Tese`.
  */
 class TeseSearch extends Tese
 {
+    public $order;
+    public $pageSize = 20;
+
+            /**
+     * @inheritdoc
+     */
+    public function attributes()
+    {
+        return ArrayHelper::merge(parent::attributes(), [
+            'q'
+        ]);
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -18,7 +32,7 @@ class TeseSearch extends Tese
     {
         return [
             [['thesis_id', 'curriculumId'], 'integer'],
-            [['title', 'institution', 'publishing_company', 'author', 'description', 'access_link', 'createdAt', 'updatedAt'], 'safe'],
+            [['title', 'institution', 'publishing_company', 'author', 'description', 'access_link', 'createdAt', 'updatedAt', 'resumo', 'data_publicacao','destaque'], 'safe'],
         ];
     }
 
@@ -46,6 +60,12 @@ class TeseSearch extends Tese
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'sort' => [
+                'defaultOrder' => $this->order
+            ],
+            'pagination' => [
+                'pageSize' => $this->pageSize,
+            ],
         ]);
 
         $this->load($params);
@@ -61,6 +81,9 @@ class TeseSearch extends Tese
             'thesis_id' => $this->thesis_id,
             'createdAt' => $this->createdAt,
             'updatedAt' => $this->updatedAt,
+            'destaque' => $this->destaque,
+            'resumo' => $this->resumo,
+            'data_publicacao' => $this->data_publicacao,
             'curriculumId' => $this->curriculumId,
         ]);
 

@@ -15,6 +15,7 @@ use common\models\Evento;
 use common\models\Projeto;
 use common\models\Noticia;
 use common\models\Artigo;
+use common\models\Tese;
 use frontend\models\PasswordResetRequestForm;
 use frontend\models\ResetPasswordForm;
 use frontend\models\SignupForm;
@@ -81,6 +82,7 @@ class SiteController extends Controller
     {
         $eventos = Evento::find()->all();
         $artigo = Artigo::find()->orderBy(['data_publicacao' => SORT_DESC])->where(['destaque' => true])->one();
+        $tese = Tese::find()->orderBy(['data_publicacao' => SORT_DESC])->where(['destaque' => true])->one();
         $projetos = Projeto::find()->orderBy(['data_publicacao' => SORT_DESC])->where(['destaque' => true])->all();
         $noticiaPrincipal = Noticia::find()->orderBy(['destaque' => SORT_DESC, 'data_publicacao' => SORT_DESC])->where(['principal' => TRUE])->one();
         $noticiasDestaque = Noticia::find()->orderBy(['destaque' => SORT_DESC, 'data_publicacao' => SORT_DESC])->where(['!=', 'news_id', $noticiaPrincipal->news_id ?? null])->andWhere(['destaque'=>true])->limit(4)->all();
@@ -101,6 +103,7 @@ class SiteController extends Controller
 
         return $this->render('index',[
             'events' => $events,
+            'tese' => $tese,
             'noticiaPrincipal' => $noticiaPrincipal,
             'noticiasDestaque' => $noticiasDestaque,
             'eventosMes' => $eventosMes,
