@@ -29,9 +29,9 @@ $this->params['breadcrumbs'][] = 'Teses';
                     <hr />
                     <p>Abaixo você poderá realizar filtros de acordo com seu interesse.</p>
                     <?php $form = ActiveForm::begin(['method' => 'GET']) ?>
-                    <?=$form->field($searchModel, 'q')->label(false)->textInput(['maxlength' => true, 'placeholder' => 'Termo ...'])?>
+                    <?= $form->field($searchModel, 'title')->textInput(['placeholder' => 'Termo ...'])->label(false) ?>
                     <?= Html::submitButton(Icon::show('search')."Buscar", ['class' => 'btn-padrao'])?>
-                    <?= Html::a(Icon::show('recycle')."Limpar", ['departamento/index'], ['class' => 'btn-padrao'])?>
+                    <?= Html::a(Icon::show('recycle')."Limpar", ['tese/index'], ['class' => 'btn-padrao'])?>
                     <?php ActiveForm::end(); ?>
                 </div>
                 <br />
