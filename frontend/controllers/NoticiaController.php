@@ -18,6 +18,11 @@ class NoticiaController extends Controller
     {
         $searchModel = new NoticiaSearch;
         $searchModel->order = ['data_publicacao' => SORT_DESC];
+
+        $post = Yii::$app->request->post('noticiaSearch');
+        $nome = (isset($post['title'])) ? $post['title'] : null;
+        $searchModel->title = $nome;
+
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index',[

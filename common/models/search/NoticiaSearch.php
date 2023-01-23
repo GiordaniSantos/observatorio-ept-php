@@ -15,16 +15,6 @@ class NoticiaSearch extends Noticia
     public $order;
     public $pageSize = 20;
 
-            /**
-     * @inheritdoc
-     */
-    public function attributes()
-    {
-        return ArrayHelper::merge(parent::attributes(), [
-            'q'
-        ]);
-    }
-
     /**
      * {@inheritdoc}
      */
@@ -32,7 +22,7 @@ class NoticiaSearch extends Noticia
     {
         return [
             [['news_id'], 'integer'],
-            [['authors', 'title', 'description', 'data_publicacao', 'createdAt', 'updatedAt', 'destaque', 'principal', 'resumo'], 'safe'],
+            [['authors', 'title', 'description', 'data_publicacao', 'createdAt', 'updatedAt', 'destaque', 'principal', 'resumo', 'q'], 'safe'],
         ];
     }
 
@@ -94,4 +84,5 @@ class NoticiaSearch extends Noticia
 
         return $dataProvider;
     }
+    
 }
