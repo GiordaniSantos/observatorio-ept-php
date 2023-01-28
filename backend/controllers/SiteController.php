@@ -4,9 +4,11 @@ namespace backend\controllers;
 
 use common\models\LoginForm;
 use Yii;
+use dynamikaweb\layout\ChangeLayout;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use yii\web\Controller;
+use backend\models\SignupForm;
 use yii\web\Response;
 
 /**
@@ -15,29 +17,65 @@ use yii\web\Response;
 class SiteController extends Controller
 {
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     public function behaviors()
     {
         return [
-            'access' => [
-                'class' => AccessControl::class,
+            [
+                'layout' => 'login',
+                'class' => ChangeLayout::class,
+                'when' => Yii::$app->user->isGuest,
+            ],
+            [
+                'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['login', 'error'],
+                        'allow' => true,
+                        'actions' => ['login'],
+                        'roles' => ['?'],
+                    ],
+                    [
+                        'actions' => ['error'],
                         'allow' => true,
                     ],
                     [
-                        'actions' => ['logout', 'index'],
+                        'controllers' => ['site'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
-                ],
-            ],
-            'verbs' => [
-                'class' => VerbFilter::class,
-                'actions' => [
-                    'logout' => ['post'],
+                    [
+                        'controllers' => ['site'],
+                        'actions' => ['request-password-reset'],
+                        'allow' => true,
+                        'roles' => ['?'],
+                    ],
+                    [
+                        'controllers' => ['site'],
+                        'actions' => ['reset-password'],
+                        'allow' => true,
+                        'roles' => ['?'],
+                    ],
+                    [
+                        'allow' => true,
+                        'matchCallback' => function ($rule, $action) {
+                            return Usuario::hasAccess();
+                         },
+                        'roles' => ['@'],
+                    ],
+                    [
+                        'actions' => [
+                            'upload-image',
+                        ],
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                    [
+                        // Deny from all:
+                        'actions' => ['*'],
+                        'allow' => false,
+                        'roles' => ['*'],
+                    ],
                 ],
             ],
         ];
@@ -86,6 +124,24 @@ class SiteController extends Controller
         $model->password = '';
 
         return $this->render('login', [
+            'model' => $model,
+        ]);
+    }
+
+        /**
+     * Signs user up.
+     *
+     * @return mixed
+     */
+    public function actionSignup()
+    {
+        $model = new SignupForm();
+        if ($model->load(Yii::$app->request->post()) && $model->signup()) {
+            Yii::$app->session->setFlash('success', 'Thank you for registration. Please check your inbox for verification email.');
+            return $this->goHome();
+        }
+
+        return $this->render('signup', [
             'model' => $model,
         ]);
     }

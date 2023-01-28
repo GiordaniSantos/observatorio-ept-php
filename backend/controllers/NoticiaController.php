@@ -2,6 +2,9 @@
 
 namespace backend\controllers;
 
+use Yii;
+use yii\filters\AccessControl;
+use dynamikaweb\layout\ChangeLayout;
 use common\models\Noticia;
 use common\models\search\NoticiaSearch;
 use yii\web\Controller;
@@ -13,22 +16,48 @@ use yii\filters\VerbFilter;
  */
 class NoticiaController extends Controller
 {
-    /**
-     * @inheritDoc
+     /**
+     * @inheritdoc
      */
     public function behaviors()
     {
-        return array_merge(
-            parent::behaviors(),
+        return [
             [
-                'verbs' => [
-                    'class' => VerbFilter::className(),
-                    'actions' => [
-                        'delete' => ['POST'],
+                'layout' => 'login',
+                'class' => ChangeLayout::class,
+                'when' => Yii::$app->user->isGuest,
+            ],
+            [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'actions' => ['login'],
+                        'roles' => ['?'],
+                    ],
+                    [
+                        'actions' => ['error'],
+                        'allow' => true,
+                    ],
+                    [
+                        'controllers' => ['site'],
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                    [
+                        'controllers' => ['noticia'],
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                    [
+                        // Deny from all:
+                        'actions' => ['*'],
+                        'allow' => false,
+                        'roles' => ['*'],
                     ],
                 ],
-            ]
-        );
+            ],
+        ];
     }
 
     /**
