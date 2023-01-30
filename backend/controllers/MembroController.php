@@ -79,14 +79,14 @@ class MembroController extends Controller
 
     /**
      * Displays a single Membro model.
-     * @param int $member_id Member ID
+     * @param int $id Member ID
      * @return string
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionView($member_id)
+    public function actionView($id)
     {
         return $this->render('view', [
-            'model' => $this->findModel($member_id),
+            'model' => $this->findModel($id),
         ]);
     }
 
@@ -101,7 +101,8 @@ class MembroController extends Controller
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'member_id' => $model->member_id]);
+                $model->saveFile();
+                return $this->redirect(['view', 'id' => $model->id]);
             }
         } else {
             $model->loadDefaultValues();
@@ -115,16 +116,17 @@ class MembroController extends Controller
     /**
      * Updates an existing Membro model.
      * If update is successful, the browser will be redirected to the 'view' page.
-     * @param int $member_id Member ID
+     * @param int $id Member ID
      * @return string|\yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionUpdate($member_id)
+    public function actionUpdate($id)
     {
-        $model = $this->findModel($member_id);
+        $model = $this->findModel($id);
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'member_id' => $model->member_id]);
+            $model->saveFile();
+            return $this->redirect(['view', 'id' => $model->id]);
         }
 
         return $this->render('update', [
@@ -132,16 +134,45 @@ class MembroController extends Controller
         ]);
     }
 
+    public function actionDeleteArquivo($id)
+    {
+        if (!Yii::$app->request->isAjax) {
+            return $this->redirect(['index']);
+        }
+        
+        $arquivo = \common\models\Arquivo::findOne($id);
+        
+        if (!$arquivo) {
+            return false;
+        }
+        $arquivo->modelClass = Membro::tableName(); // Necessario para exclusao da pasta do upload
+        
+        try {
+            
+            if ($arquivo->delete()) {
+                
+                return 'success';
+            }
+        } catch (\Exception $e) {
+            $msg = \common\components\helper\Utils::formatDBError($e->getCode());
+            Yii::error($e->getMessage());
+            return $msg;
+        }
+        
+        return false;
+        
+    }
+
     /**
      * Deletes an existing Membro model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param int $member_id Member ID
+     * @param int $id Member ID
      * @return \yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionDelete($member_id)
+    public function actionDelete($id)
     {
-        $this->findModel($member_id)->delete();
+        $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
     }
@@ -149,13 +180,13 @@ class MembroController extends Controller
     /**
      * Finds the Membro model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param int $member_id Member ID
+     * @param int $id Member ID
      * @return Membro the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($member_id)
+    protected function findModel($id)
     {
-        if (($model = Membro::findOne(['member_id' => $member_id])) !== null) {
+        if (($model = Membro::findOne(['id' => $id])) !== null) {
             return $model;
         }
 

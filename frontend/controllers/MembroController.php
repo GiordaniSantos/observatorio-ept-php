@@ -17,7 +17,7 @@ class MembroController extends Controller
     public function actionIndex()
     {
         $searchModel = new MembroSearch;
-        $searchModel->order = ['member_id' => SORT_DESC];
+        $searchModel->order = ['id' => SORT_DESC];
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index',[

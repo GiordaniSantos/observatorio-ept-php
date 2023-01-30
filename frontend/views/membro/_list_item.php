@@ -3,10 +3,20 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 use kartik\icons\Icon;
 
+$classImg = 'img-news';
+$version = \common\models\Arquivo::VERSION_MID;
+
+$arquivo = $model->arquivo;
+if($arquivo){
+
+    $url = $arquivo->getFileUrl('membro',\common\models\Arquivo::VERSION_LARGE);
+}else{
+    $url = "@web/images/indisponivel.jpg";
+}
 ?>
 <div class="row box-lista">
     <div class="col-4 nopadding imagem-lista-membro">
-        <?=Html::img("@web/images/indisponivel.jpg", ['alt' => $model->name])?>        
+        <?=Html::img($url, ['alt' => $model->name])?>        
     </div>
     <div class="col-8 texto">
         <h4><strong><?=$model->name?></strong></h4>

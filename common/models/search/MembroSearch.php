@@ -21,7 +21,7 @@ class MembroSearch extends Membro
     public function rules()
     {
         return [
-            [['member_id'], 'integer'],
+            [['id'], 'integer'],
             [['name', 'institution', 'link_curriculum', 'createdAt', 'updatedAt'], 'safe'],
         ];
     }
@@ -68,7 +68,7 @@ class MembroSearch extends Membro
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'member_id' => $this->member_id,
+            'id' => $this->id,
             'createdAt' => $this->createdAt,
             'updatedAt' => $this->updatedAt,
         ]);
