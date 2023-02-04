@@ -2,13 +2,18 @@
 use yii\helpers\Html;
 use yii\helpers\Url;
 use kartik\icons\Icon;
+use common\models\Arquivo;
 ?>
 
 <div class="box-lista-noticia">
-    <a href="<?=Url::to(['noticia/view', 'id' => $model->news_id])?>" class="d-block" data-pjax="0">
+    <a href="<?=Url::to(['noticia/view', 'id' => $model->id])?>" class="d-block" data-pjax="0">
         <div class="row">
             <div class="col-12 nopadding imagem-lista">
-                <?=Html::img("@web/images/indisponivel.jpg", ['alt' => $model->title])?>        
+                <?php if($model->getImagemCapa('noticiaArquivos','id_noticia',Arquivo::VERSION_LARGE, false)):?>
+                    <?=Html::img($model->getImagemCapa('noticiaArquivos','id_noticia',Arquivo::VERSION_LARGE),['width'=>'100%','alt' => '']);?>
+                <?php else:?>
+                    <?=Html::img("@web/images/indisponivel.jpg", ['width' => '100%', 'title' => $model->title])?>
+                <?php endif?>	   
             </div>
             <div class="col texto texto-noticia">
                 <h4><strong><?=$model->title?></strong></h4><hr />

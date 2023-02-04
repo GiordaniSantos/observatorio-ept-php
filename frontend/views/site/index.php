@@ -2,6 +2,7 @@
 use yii\helpers\Html;
 use kartik\icons\Icon;
 use yii\helpers\Url;
+use common\models\Arquivo;
 
 /** @var yii\web\View $this */
 
@@ -27,9 +28,11 @@ $this->title = 'Observatório do IFSUL';
          </div>
          <?php if($noticiaPrincipal):?>
             <div class="col-6">
-               <a href="<?=Url::to(['noticia/view', 'id' => $noticiaPrincipal->news_id])?>">
+               <a href="<?=Url::to(['noticia/view', 'id' => $noticiaPrincipal->id])?>">
                   <article class="col-12 nopadding home-noticia-principal">
-                     <?= Html::img("@web/images/indisponivel.jpg", ['width' => '100%'])?>		  			
+                     <?php if($noticiaPrincipal->getImagemCapa('noticiaArquivos','id_noticia',Arquivo::VERSION_LARGE, false)):?>
+                        <?=Html::img($noticiaPrincipal->getImagemCapa('noticiaArquivos','id_noticia',Arquivo::VERSION_LARGE),['width'=>'100%','alt' => '']);?>
+                     <?php endif?>		  			
                      <strong>
                         <h3><?=$noticiaPrincipal->title?></h3>
                         <span class="tarja"></span>
@@ -43,9 +46,13 @@ $this->title = 'Observatório do IFSUL';
             <div id="noticia-secundaria" class="row">
                <?php foreach($noticiasDestaque as $noticiaDestaque):?>
                   <div class="col-6">
-                     <a href="<?=Url::to(['noticia/view', 'id' =>1])?>" class="d-block">
+                     <a href="<?=Url::to(['noticia/view', 'id' => $noticiaDestaque->id])?>" class="d-block">
                         <div class="home-noticia-secundaria">
-                           <?=Html::img("@web/images/indisponivel.jpg", ['width' => '100%', 'title' => "teste"])?>
+                           <?php if($noticiaDestaque->getImagemCapa('noticiaArquivos','id_noticia',Arquivo::VERSION_LARGE, false)):?>
+                              <?=Html::img($noticiaDestaque->getImagemCapa('noticiaArquivos','id_noticia',Arquivo::VERSION_LARGE),['width'=>'100%','alt' => '']);?>
+                           <?php else:?>
+                              <?=Html::img("@web/images/indisponivel.jpg", ['width' => '100%', 'title' => $noticiaDestaque->title])?>
+                           <?php endif?>	
                            <h3><?=$noticiaDestaque->title?></h3>
                            <div class="tarja"></div>
                         </div>

@@ -5,6 +5,7 @@ namespace common\models;
 use Yii;
 use yii\base\Exception;
 use yii\helpers\Html;
+use yii\helpers\ArrayHelper;
 
 class BaseModel extends \yii\db\ActiveRecord
 {
@@ -54,35 +55,32 @@ class BaseModel extends \yii\db\ActiveRecord
 
 
 
+   
     public function getGalleryItems($relation, $field, $options = [])
     {
+        $version = ArrayHelper::getValue($options, 'version', Arquivo::VERSION_LARGE);
+        $clover = ArrayHelper::getValue($options, 'clover', true);
+
         $arquivos = Arquivo::find()->joinWith($relation)->where([
             $relation . '.' . $field => $this->id,
             'arquivo.tipo' => Arquivo::TIPO_IMAGEM
         ])->orderBy(['(case when capa is true then 0 else arquivo.posicao end)' => SORT_ASC])->all();
 
         if (empty($arquivos)) {
-            return null;
-        }
+            return [];
+        }        
 
-        $version = (isset($options['version'])) ? $options['version'] : Arquivo::VERSION_LARGE;
-        $imgOptions = (isset($options['imgOptions'])) ? $options['imgOptions'] : ['class' => 'd-block img-fluid'];
-        $galleryOptions = (isset($options['galleryOptions'])) ? $options['galleryOptions'] : [];
-        $capa = (isset($options['clover'])) ? $options['clover'] : true;
-
-        $gallery = [];
-
-        if (!$capa) { //Remove a primeira imagem caso ela ja esteja sendo usada como capa na mesma página
+        if (!$clover) { //Remove a primeira imagem caso ela ja esteja sendo usada como capa na mesma página
             array_shift($arquivos);
         }
 
-        foreach ($arquivos as $arquivo) {
+        $gallery = [];
 
+        foreach ($arquivos as $arquivo) {
             $filePath = $arquivo->getFileUrl($this->uploadModelName, $version);
-            $gallery[] = [
-                'content' => Html::img($filePath, $imgOptions),
-                'caption' => '<p>' . $arquivo->legenda . '</p>',
-                'options' => $galleryOptions
+            $gallery[] = (object) [
+                'link' => $filePath,
+                'legenda' => $arquivo->legenda,
             ];
         }
 
@@ -105,6 +103,22 @@ class BaseModel extends \yii\db\ActiveRecord
         }
 
         return $arquivo->getFileUrl($this->uploadModelName, $version);
+    }
+
+    public function getDataProviderArquivos($tipo = null, $options = [])
+    {
+        $order = ArrayHelper::getValue($options, 'order', 'extract(year from arquivo.data_publicacao) desc, arquivo.data_publicacao asc, arquivo.posicao desc');
+        $reference = ArrayHelper::getValue($this->modelUploadMap, 'reference', null);
+        $field = ArrayHelper::getValue($this->modelUploadMap, 'field', null);
+        $query = Arquivo::find()
+            ->andWhere(["{$reference}.{$field}" => $this->id])
+            ->andFilterWhere(["{$reference}.tipo" => $tipo])
+            ->joinWith("{$reference}")
+            ->orderBy($order);
+
+        return new \yii\data\ActiveDataProvider([
+            'query' => $query,
+        ]);
     }
 
     public function hasFile($tipo = null)
@@ -165,6 +179,15 @@ class BaseModel extends \yii\db\ActiveRecord
     public function getGridColumns($searchModel = null)
     {
         return [];
+    }
+
+        /**
+     * @see yii\i18n\Formatter
+     * @return string
+     */
+    public function getDataExtenso($attribute = 'data_publicacao', $format = 'long')
+    {
+        return Yii::$app->formatter->asDate($this->$attribute, $format);
     }
 
     public function saveFile($uploadAttribute = 'file', $fileAttribute = 'id_arquivo')

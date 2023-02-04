@@ -32,7 +32,10 @@ Icon::map($this, Icon::FA);
                     $version = ($model->tipo == Arquivo::TIPO_IMAGEM) ? Arquivo::VERSION_LARGE : null;
                     $file = $model->getFileUrl('membro',$version);
                     
-                    $linkContent = Icon::show($model->getFileIcon(), ['class'=>'fa-5x']);
+                    $linkContent = Html::img($file,[
+                        'class' => 'img-thumbnail',
+                        'alt' => $model->nome_original,
+                    ]);
 
                     return Html::a($linkContent,$file,[
                         'target' => '_blank',

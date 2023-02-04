@@ -27,6 +27,7 @@ class Arquivo extends \common\models\BaseModel
     public $ano;
     public $file;
     public $image;
+    public $modelClass;
 
     private $cacheId;
     
@@ -104,6 +105,12 @@ class Arquivo extends \common\models\BaseModel
     public function getMembro()
     {
         return $this->hasOne(Membro::className(), ['id_arquivo' => 'id']);
+    }
+
+    public function getNoticiaArquivos()
+    {
+        return $this->hasMany(NoticiaArquivo::className(), ['id_arquivo' => 'id'])
+            ->from(['noticiaArquivos' => NoticiaArquivo::tableName()]);
     }
 
 

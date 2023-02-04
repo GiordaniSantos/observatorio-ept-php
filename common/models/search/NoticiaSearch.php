@@ -21,7 +21,7 @@ class NoticiaSearch extends Noticia
     public function rules()
     {
         return [
-            [['news_id'], 'integer'],
+            [['id'], 'integer'],
             [['authors', 'title', 'description', 'data_publicacao', 'createdAt', 'updatedAt', 'destaque', 'principal', 'resumo', 'q'], 'safe'],
         ];
     }
@@ -69,7 +69,7 @@ class NoticiaSearch extends Noticia
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'news_id' => $this->news_id,
+            'id' => $this->id,
             'data_publicacao' => $this->data_publicacao,
             'destaque' => $this->destaque,
             'principal' => $this->principal,

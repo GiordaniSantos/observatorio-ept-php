@@ -44,7 +44,7 @@ class NoticiaController extends Controller
     
     protected function findModel($id)
     {
-        $model = Noticia::find()->where(['news_id' => $id ])->one();
+        $model = Noticia::find()->where(['id' => $id ])->one();
         if ($model === null){
             throw new HttpException(404, "Noticia não encontrado");
         } 

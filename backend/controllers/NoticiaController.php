@@ -78,14 +78,14 @@ class NoticiaController extends Controller
 
     /**
      * Displays a single Noticia model.
-     * @param int $news_id News ID
+     * @param int $id News ID
      * @return string
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionView($news_id)
+    public function actionView($id)
     {
         return $this->render('view', [
-            'model' => $this->findModel($news_id),
+            'model' => $this->findModel($id),
         ]);
     }
 
@@ -100,7 +100,7 @@ class NoticiaController extends Controller
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'news_id' => $model->news_id]);
+                return $this->redirect(['view', 'id' => $model->id]);
             }
         } else {
             $model->loadDefaultValues();
@@ -114,16 +114,17 @@ class NoticiaController extends Controller
     /**
      * Updates an existing Noticia model.
      * If update is successful, the browser will be redirected to the 'view' page.
-     * @param int $news_id News ID
+     * @param int $id News ID
      * @return string|\yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionUpdate($news_id)
+    public function actionUpdate($id)
     {
-        $model = $this->findModel($news_id);
+        $model = $this->findModel($id);
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'news_id' => $model->news_id]);
+            $model->saveFiles();
+            return $this->redirect(['view', 'id' => $model->id]);
         }
 
         return $this->render('update', [
@@ -134,27 +135,60 @@ class NoticiaController extends Controller
     /**
      * Deletes an existing Noticia model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param int $news_id News ID
+     * @param int $id News ID
      * @return \yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionDelete($news_id)
+    public function actionDelete($id)
     {
-        $this->findModel($news_id)->delete();
+        $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
     }
 
+    public function actionDeleteArquivo()
+    {
+        
+        if (!Yii::$app->request->isAjax) {
+            return $this->redirect(['index']);
+        }
+        
+        if (Yii::$app->request->post()) {
+            $id = Yii::$app->request->post('id');
+            
+            $arquivo = \common\models\Arquivo::findOne($id);
+            $arquivo->modelClass = Noticia::tableName(); // Necessario para exclusao da pasta do upload
+
+            if (!$arquivo) {
+                return false;
+            }
+            
+            $noticiaArquivo = $arquivo->noticiaArquivos;
+            $noticiaArquivo = ($noticiaArquivo) ? current($noticiaArquivo) : null;
+            
+            try {
+                if ($arquivo->delete() && $noticiaArquivo) {
+                    return 'success';
+                }
+            } catch (\Exception $e) {
+                $msg = \common\components\helper\Utils::formatDBError($e->getCode());
+                Yii::error($e->getMessage());
+                return $msg;
+            }
+        }
+        
+        return false;
+    }
     /**
      * Finds the Noticia model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param int $news_id News ID
+     * @param int $id News ID
      * @return Noticia the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($news_id)
+    protected function findModel($id)
     {
-        if (($model = Noticia::findOne(['news_id' => $news_id])) !== null) {
+        if (($model = Noticia::findOne(['id' => $id])) !== null) {
             return $model;
         }
 
